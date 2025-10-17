@@ -1,0 +1,2385 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>EditCraft — Crafting Visuals That Convert</title>
+    <meta name="description"
+        content="Premium video editing, web & graphic design, thumbnails, SEO & social growth services by EditCraft.">
+
+    <!-- Open Graph / Social Media Meta Tags -->
+    <meta property="og:title" content="EditCraft — Crafting Visuals That Convert">
+    <meta property="og:description"
+        content="Premium video editing, web & graphic design, thumbnails, SEO & social growth services.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://editcraft.com">
+    <meta property="og:image" content="https://editcraft.com/images/og-image.jpg">
+
+    <!-- Structured Data (JSON-LD) -->
+    <script type="application/ld+json">
+    {
+        "@context": "https://schema.org",
+        "@type": "Organization",
+        "name": "EditCraft",
+        "description": "Premium video editing, web & graphic design, thumbnails, SEO & social growth services.",
+        "url": "https://editcraft.com",
+        "logo": "https://editcraft.com/images/logo.png",
+        "sameAs": [
+            "https://www.instagram.com/editcraft",
+            "https://www.youtube.com/editcraft",
+            "https://www.linkedin.com/company/editcraft"
+        ],
+        "contactPoint": {
+            "@type": "ContactPoint",
+            "telephone": "+1-555-EDITCRAFT",
+            "contactType": "customer service",
+            "email": "hello@editcraft.com"
+        }
+    }
+    </script>
+
+    <!-- Tailwind CSS -->
+    <script src="https://cdn.tailwindcss.com"></script>
+
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+
+    <!-- Custom Styles -->
+    <style>
+        :root {
+            --neon-primary: #00f3ff;
+            --neon-secondary: #ff00c8;
+            --glass-bg: rgba(255, 255, 255, 0.05);
+            --glass-border: rgba(255, 255, 255, 0.1);
+        }
+
+        .dark {
+            --glass-bg: rgba(0, 0, 0, 0.2);
+            --glass-border: rgba(255, 255, 255, 0.05);
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background: linear-gradient(135deg, #0f0f23 0%, #1a1a2e 50%, #16213e 100%);
+            color: #e2e8f0;
+            overflow-x: hidden;
+        }
+
+        .glass {
+            background: var(--glass-bg);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--glass-border);
+            box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.36);
+        }
+
+        .neon-border {
+            position: relative;
+        }
+
+        .neon-border::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: inherit;
+            padding: 2px;
+            background: linear-gradient(45deg, var(--neon-primary), var(--neon-secondary));
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: xor;
+            mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            mask-composite: exclude;
+            opacity: 0.7;
+            transition: opacity 0.3s ease;
+        }
+
+        .neon-border:hover::before {
+            opacity: 1;
+        }
+
+        /* FIXED: Form-specific neon border that doesn't interfere with inputs */
+        .form-container.neon-border {
+            isolation: isolate;
+        }
+
+        .form-container.neon-border::before {
+            pointer-events: none;
+            z-index: 0;
+        }
+
+        .neon-text {
+            text-shadow: 0 0 5px currentColor, 0 0 10px currentColor, 0 0 15px currentColor;
+        }
+
+        .neon-glow {
+            box-shadow: 0 0 5px var(--neon-primary), 0 0 10px var(--neon-primary), 0 0 15px var(--neon-primary);
+        }
+
+        .gradient-text {
+            background: linear-gradient(45deg, var(--neon-primary), var(--neon-secondary));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+
+        .gradient-bg {
+            background: linear-gradient(45deg, var(--neon-primary), var(--neon-secondary));
+        }
+
+        .section-padding {
+            padding: 5rem 1rem;
+        }
+
+        .hero-bg {
+            background: radial-gradient(ellipse at center, rgba(79, 70, 229, 0.15) 0%, transparent 70%);
+        }
+
+        .parallax {
+            background-attachment: fixed;
+            background-position: center;
+            background-repeat: no-repeat;
+            background-size: cover;
+        }
+
+        /* Smooth scrolling */
+        html {
+            scroll-behavior: smooth;
+        }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #1a1a2e;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: linear-gradient(var(--neon-primary), var(--neon-secondary));
+            border-radius: 4px;
+        }
+
+        /* Animation classes */
+        .fade-in {
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .scale-in {
+            transform: scale(0.9);
+            opacity: 0;
+            transition: transform 0.5s ease, opacity 0.5s ease;
+        }
+
+        .scale-in.visible {
+            transform: scale(1);
+            opacity: 1;
+        }
+
+        /* FIXED: Form elements now properly accessible */
+        input,
+        textarea,
+        button {
+            -webkit-appearance: none;
+            -moz-appearance: none;
+            appearance: none;
+        }
+
+        /* Ensure form inputs are above the neon border */
+        .form-container input,
+        .form-container textarea,
+        .form-container button {
+            position: relative;
+            z-index: 10;
+        }
+
+        input:focus,
+        textarea:focus {
+            outline: none;
+            box-shadow: 0 0 0 2px var(--neon-primary);
+        }
+
+        /* Portfolio Modal Styles */
+        .portfolio-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
+            overflow-y: auto;
+        }
+
+        .portfolio-modal.active {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .modal-content {
+            width: 90%;
+            max-width: 1000px;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        /* Loading Animation */
+        .loading-spinner {
+            display: inline-block;
+            width: 20px;
+            height: 20px;
+            border: 3px solid rgba(255, 255, 255, .3);
+            border-radius: 50%;
+            border-top-color: var(--neon-primary);
+            animation: spin 1s ease-in-out infinite;
+        }
+
+        @keyframes spin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        /* Enhanced Mobile Responsiveness */
+        @media (max-width: 280px) {
+            .section-padding {
+                padding: 2rem 0.5rem;
+            }
+
+            .hero-headline {
+                font-size: 1.5rem;
+            }
+
+            .section-heading {
+                font-size: 1.3rem;
+            }
+
+            .text-xs-280 {
+                font-size: 0.65rem;
+            }
+        }
+
+        @media (max-width: 320px) {
+            .section-padding {
+                padding: 3rem 0.5rem;
+            }
+
+            .text-xs-320 {
+                font-size: 0.7rem;
+            }
+        }
+
+        @media (max-width: 375px) {
+            .hero-headline {
+                font-size: 1.6rem;
+            }
+
+            .section-heading {
+                font-size: 1.4rem;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .hero-headline {
+                font-size: 1.75rem;
+            }
+
+            .section-heading {
+                font-size: 1.5rem;
+            }
+
+            .portfolio-filter {
+                padding: 0.5rem 0.75rem;
+                font-size: 0.8rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .mobile-stack {
+                flex-direction: column;
+            }
+
+            .mobile-full {
+                width: 100%;
+            }
+
+            .mobile-center {
+                text-align: center;
+            }
+
+            .mobile-hidden {
+                display: none;
+            }
+
+            .mobile-padding {
+                padding: 1rem;
+            }
+        }
+
+        @media (max-width: 1024px) {
+            .tablet-columns-2 {
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            .tablet-full {
+                width: 100%;
+            }
+        }
+
+        @media (min-width: 1280px) {
+            .container {
+                max-width: 1200px;
+            }
+        }
+
+        @media (min-width: 1440px) {
+            .container {
+                max-width: 1300px;
+            }
+        }
+
+        @media (min-width: 1600px) {
+            .container {
+                max-width: 1400px;
+            }
+        }
+
+        @media (min-width: 1920px) {
+            .container {
+                max-width: 1600px;
+            }
+        }
+
+        /* Dark mode toggle */
+        .dark-mode-toggle {
+            position: relative;
+            width: 60px;
+            height: 30px;
+        }
+
+        .dark-mode-toggle input {
+            opacity: 0;
+            width: 0;
+            height: 0;
+        }
+
+        .dark-mode-slider {
+            position: absolute;
+            cursor: pointer;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: #1a1a2e;
+            transition: .4s;
+            border-radius: 34px;
+            border: 1px solid var(--neon-primary);
+        }
+
+        .dark-mode-slider:before {
+            position: absolute;
+            content: "";
+            height: 22px;
+            width: 22px;
+            left: 4px;
+            bottom: 3px;
+            background-color: white;
+            transition: .4s;
+            border-radius: 50%;
+        }
+
+        input:checked+.dark-mode-slider {
+            background-color: var(--neon-primary);
+        }
+
+        input:checked+.dark-mode-slider:before {
+            transform: translateX(28px);
+        }
+
+        /* Back to top button */
+        .back-to-top {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: var(--neon-primary);
+            color: #0f0f23;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+            cursor: pointer;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+            z-index: 100;
+            box-shadow: 0 0 10px var(--neon-primary);
+        }
+
+        .back-to-top.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* Image zoom effect */
+        .zoom-image {
+            transition: transform 0.3s ease;
+        }
+
+        .zoom-image:hover {
+            transform: scale(1.05);
+        }
+
+        /* Progress bar */
+        .reading-progress {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 0%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--neon-primary), var(--neon-secondary));
+            z-index: 9999;
+            transition: width 0.3s ease;
+        }
+
+        /* Notification toast */
+        .toast {
+            position: fixed;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            padding: 12px 24px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .toast.visible {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* Image lazy loading */
+        .lazy-image {
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .lazy-image.loaded {
+            opacity: 1;
+        }
+
+        /* Service card hover effects */
+        .service-card {
+            transition: all 0.3s ease;
+        }
+
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 25px rgba(0, 243, 255, 0.2);
+        }
+
+        /* Founder card animations */
+        .founder-card {
+            transition: all 0.3s ease;
+        }
+
+        .founder-card:hover {
+            transform: translateY(-5px);
+        }
+
+        /* Form input animations */
+        .form-input {
+            transition: all 0.3s ease;
+        }
+
+        .form-input:focus {
+            transform: scale(1.02);
+        }
+
+        /* Portfolio filter active state */
+        .portfolio-filter.active {
+            background: linear-gradient(45deg, var(--neon-primary), var(--neon-secondary));
+            color: #0f0f23;
+            font-weight: bold;
+        }
+    </style>
+</head>
+
+<body class="dark">
+    <!-- Reading Progress Bar -->
+    <div class="reading-progress" id="reading-progress"></div>
+
+    <!-- Notification Toast -->
+    <div class="toast" id="toast"></div>
+
+    <!-- Back to Top Button -->
+    <div class="back-to-top" id="back-to-top">
+        <i class="fas fa-chevron-up"></i>
+    </div>
+
+    <!-- Header / Navigation -->
+    <header class="fixed top-0 left-0 right-0 z-50 glass py-4">
+        <div class="container mx-auto px-4 flex justify-between items-center">
+            <a href="#home" class="text-2xl font-bold gradient-text neon-text flex items-center">
+                <i class="fas fa-play-circle mr-2"></i>
+                EditCrafts
+            </a>
+
+            <!-- Desktop Navigation -->
+            <nav class="hidden md:flex space-x-8 items-center">
+                <a href="#home" class="text-white hover:gradient-text transition-all duration-300 relative group">
+                    Home
+                    <span
+                        class="absolute bottom-0 left-0 w-0 h-0.5 gradient-bg transition-all duration-300 group-hover:w-full"></span>
+                </a>
+                <a href="#services" class="text-white hover:gradient-text transition-all duration-300 relative group">
+                    Services
+                    <span
+                        class="absolute bottom-0 left-0 w-0 h-0.5 gradient-bg transition-all duration-300 group-hover:w-full"></span>
+                </a>
+                <a href="#portfolio" class="text-white hover:gradient-text transition-all duration-300 relative group">
+                    Portfolio
+                    <span
+                        class="absolute bottom-0 left-0 w-0 h-0.5 gradient-bg transition-all duration-300 group-hover:w-full"></span>
+                </a>
+                <a href="#about" class="text-white hover:gradient-text transition-all duration-300 relative group">
+                    About
+                    <span
+                        class="absolute bottom-0 left-0 w-0 h-0.5 gradient-bg transition-all duration-300 group-hover:w-full"></span>
+                </a>
+                <a href="#contact" class="text-white hover:gradient-text transition-all duration-300 relative group">
+                    Contact
+                    <span
+                        class="absolute bottom-0 left-0 w-0 h-0.5 gradient-bg transition-all duration-300 group-hover:w-full"></span>
+                </a>
+
+                <!-- Dark Mode Toggle -->
+                <label class="dark-mode-toggle ml-4">
+                    <input type="checkbox" id="dark-mode-toggle">
+                    <span class="dark-mode-slider"></span>
+                </label>
+            </nav>
+
+            <!-- CTA Button -->
+            <a href="#contact"
+                class="hidden md:flex items-center px-6 py-2 rounded-full gradient-bg text-white font-medium hover:shadow-lg hover:neon-glow transition-all duration-300">
+                <i class="fas fa-paper-plane mr-2"></i>
+                Get a Quote
+            </a>
+
+            <!-- Mobile Menu Button -->
+            <button id="mobile-menu-button" class="md:hidden text-white text-xl">
+                <i class="fas fa-bars"></i>
+            </button>
+        </div>
+
+        <!-- Mobile Menu -->
+        <div id="mobile-menu"
+            class="md:hidden absolute top-full left-0 right-0 glass py-4 hidden transition-all duration-300">
+            <div class="container mx-auto px-4 flex flex-col space-y-4">
+                <a href="#home"
+                    class="text-white py-2 hover:gradient-text transition-all duration-300 flex items-center">
+                    <i class="fas fa-home mr-3"></i>
+                    Home
+                </a>
+                <a href="#services"
+                    class="text-white py-2 hover:gradient-text transition-all duration-300 flex items-center">
+                    <i class="fas fa-cogs mr-3"></i>
+                    Services
+                </a>
+                <a href="#portfolio"
+                    class="text-white py-2 hover:gradient-text transition-all duration-300 flex items-center">
+                    <i class="fas fa-briefcase mr-3"></i>
+                    Portfolio
+                </a>
+                <a href="#about"
+                    class="text-white py-2 hover:gradient-text transition-all duration-300 flex items-center">
+                    <i class="fas fa-users mr-3"></i>
+                    About
+                </a>
+                <a href="#contact"
+                    class="text-white py-2 hover:gradient-text transition-all duration-300 flex items-center">
+                    <i class="fas fa-envelope mr-3"></i>
+                    Contact
+                </a>
+
+                <!-- Dark Mode Toggle Mobile -->
+                <div class="flex items-center justify-between py-2">
+                    <span class="text-white">Dark Mode</span>
+                    <label class="dark-mode-toggle">
+                        <input type="checkbox" id="dark-mode-toggle-mobile">
+                        <span class="dark-mode-slider"></span>
+                    </label>
+                </div>
+
+                <a href="#contact"
+                    class="py-2 px-4 rounded-full gradient-bg text-white font-medium text-center hover:shadow-lg hover:neon-glow transition-all duration-300 flex items-center justify-center">
+                    <i class="fas fa-paper-plane mr-2"></i>
+                    Get a Quote
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <!-- Homepage View -->
+
+        <!-- Hero Section -->
+         
+        <section id="home"
+            class="min-h-screen flex items-center justify-center relative overflow-hidden section-padding hero-bg">
+
+            <div class="container mx-auto px-4 text-center">
+                <h1 class="hero-headline text-4xl md:text-6xl font-bold mb-6 fade-in">
+                    <span class="gradient-text neon-text">EditCrafts</span> — Creative agency
+                </h1>
+                <p class="text-xl md:text-2xl text-gray-300 mb-10 max-w-3xl mx-auto fade-in">
+                    Premium video editing, web & graphic design, thumbnails, SEO & social growth.
+                </p>
+                <div class="flex justify-center mb-10">
+                    <div class="w-80 h-80 rounded-full overflow-hidden glass neon-border shadow-lg flex items-center justify-center">
+                        <img src="logo.png" alt="EditCraft Logo" class="w-full h-full object-cover" />
+                    </div>
+                </div>
+                <div class="flex flex-col sm:flex-row justify-center gap-4 fade-in">
+                    <a href="#portfolio"
+                        class="px-8 py-3 rounded-full gradient-bg text-white font-medium hover:shadow-lg hover:neon-glow transition-all duration-300 mobile-full text-center flex items-center justify-center">
+                        <i class="fas fa-eye mr-2"></i>
+                        Explore Portfolio
+                    </a>
+                    <a href="#contact"
+                        class="px-8 py-3 rounded-full glass text-white font-medium hover:shadow-lg transition-all duration-300 mobile-full text-center neon-border flex items-center justify-center">
+                        <i class="fas fa-paper-plane mr-2"></i>
+                        Get a Quote
+                    </a>
+                </div>
+
+                <!-- Stats Section -->
+                <div class="grid grid-cols-2 md:grid-cols-4 gap-6 mt-16 fade-in">
+                    <div class="glass rounded-2xl p-6 text-center">
+                        <div class="text-3xl font-bold gradient-text mb-2" id="stat-projects">0</div>
+                        <p class="text-gray-400">Projects Completed</p>
+                    </div>
+                    <div class="glass rounded-2xl p-6 text-center">
+                        <div class="text-3xl font-bold gradient-text mb-2" id="stat-clients">0</div>
+                        <p class="text-gray-400">Happy Clients</p>
+                    </div>
+                    <div class="glass rounded-2xl p-6 text-center">
+                        <div class="text-3xl font-bold gradient-text mb-2" id="stat-experience">0</div>
+                        <p class="text-gray-400">Years Experience</p>
+                    </div>
+                    <div class="glass rounded-2xl p-6 text-center">
+                        <div class="text-3xl font-bold gradient-text mb-2" id="stat-awards">0</div>
+                        <p class="text-gray-400">Awards Won</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Animated background elements -->
+            <div
+                class="absolute top-1/4 left-1/4 w-20 h-20 rounded-full bg-purple-500 opacity-20 blur-xl animate-pulse">
+            </div>
+            <div
+                class="absolute bottom-1/4 right-1/4 w-16 h-16 rounded-full bg-cyan-500 opacity-30 blur-lg animate-bounce">
+            </div>
+            <div class="absolute top-1/2 right-1/3 w-12 h-12 rounded-full bg-pink-500 opacity-25 blur-lg animate-ping">
+            </div>
+
+            <!-- Scroll indicator -->
+            <div class="absolute bottom-10 left-1/2 transform -translate-x-1/2">
+                <div class="flex flex-col items-center text-gray-400">
+                    <span class="text-sm mb-2">Scroll Down</span>
+                    <i class="fas fa-chevron-down animate-bounce"></i>
+                </div>
+            </div>
+        </section>
+
+        <!-- Services Section -->
+        <section id="services" class="section-padding">
+            <div class="container mx-auto px-4">
+                <h2 class="section-heading text-3xl md:text-4xl font-bold text-center mb-4 gradient-text">Our Services
+                </h2>
+                <p class="text-xl text-gray-400 text-center mb-12 max-w-2xl mx-auto">
+                    Comprehensive creative solutions to elevate your brand and drive results
+                </p>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                    <div
+                        class="service-card glass rounded-2xl p-6 hover:transform hover:-translate-y-2 transition-all duration-500 neon-border group">
+                        <div class="text-4xl mb-4 group-hover:scale-110 transition-transform duration-300">🎬</div>
+                        <h3 class="text-xl font-bold mb-3 group-hover:gradient-text transition-colors duration-300">
+                            Video Editing</h3>
+                        <p class="text-gray-400 mb-4">Professional video editing services for YouTube, social media,
+                            commercials, and corporate videos. We transform raw footage into engaging stories.</p>
+                        <div class="flex justify-between items-center">
+                            <a href="#portfolio"
+                                class="text-cyan-400 hover:text-cyan-300 font-medium inline-flex items-center group-hover:neon-text transition-all duration-300">
+                                View Examples
+                                <i class="fas fa-arrow-right ml-1"></i>
+                            </a>
+                            <span class="text-sm text-gray-500">Starting at $99</span>
+                        </div>
+                    </div>
+
+                    <div
+                        class="service-card glass rounded-2xl p-6 hover:transform hover:-translate-y-2 transition-all duration-500 neon-border group">
+                        <div class="text-4xl mb-4 group-hover:scale-110 transition-transform duration-300">💻</div>
+                        <h3 class="text-xl font-bold mb-3 group-hover:gradient-text transition-colors duration-300">Web
+                            Design & Development</h3>
+                        <p class="text-gray-400 mb-4">Custom websites designed to convert visitors into customers.
+                            Responsive, fast, and optimized for search engines and user experience.</p>
+                        <div class="flex justify-between items-center">
+                            <a href="#portfolio"
+                                class="text-cyan-400 hover:text-cyan-300 font-medium inline-flex items-center group-hover:neon-text transition-all duration-300">
+                                View Examples
+                                <i class="fas fa-arrow-right ml-1"></i>
+                            </a>
+                            <span class="text-sm text-gray-500">Starting at $499</span>
+                        </div>
+                    </div>
+
+                    <div
+                        class="service-card glass rounded-2xl p-6 hover:transform hover:-translate-y-2 transition-all duration-500 neon-border group">
+                        <div class="text-4xl mb-4 group-hover:scale-110 transition-transform duration-300">🎨</div>
+                        <h3 class="text-xl font-bold mb-3 group-hover:gradient-text transition-colors duration-300">
+                            Graphic Design</h3>
+                        <p class="text-gray-400 mb-4">Creative visual designs for logos, branding, marketing materials,
+                            and social media that communicate your brand message effectively.</p>
+                        <div class="flex justify-between items-center">
+                            <a href="#portfolio"
+                                class="text-cyan-400 hover:text-cyan-300 font-medium inline-flex items-center group-hover:neon-text transition-all duration-300">
+                                View Examples
+                                <i class="fas fa-arrow-right ml-1"></i>
+                            </a>
+                            <span class="text-sm text-gray-500">Starting at $79</span>
+                        </div>
+                    </div>
+
+                    <div
+                        class="service-card glass rounded-2xl p-6 hover:transform hover:-translate-y-2 transition-all duration-500 neon-border group">
+                        <div class="text-4xl mb-4 group-hover:scale-110 transition-transform duration-300">🖼️</div>
+                        <h3 class="text-xl font-bold mb-3 group-hover:gradient-text transition-colors duration-300">
+                            Thumbnail Creation</h3>
+                        <p class="text-gray-400 mb-4">High-click-through-rate thumbnails designed to capture attention
+                            and drive views for your YouTube videos and social content.</p>
+                        <div class="flex justify-between items-center">
+                            <a href="#portfolio"
+                                class="text-cyan-400 hover:text-cyan-300 font-medium inline-flex items-center group-hover:neon-text transition-all duration-300">
+                                View Examples
+                                <i class="fas fa-arrow-right ml-1"></i>
+                            </a>
+                            <span class="text-sm text-gray-500">Starting at $29</span>
+                        </div>
+                    </div>
+
+                    <div
+                        class="service-card glass rounded-2xl p-6 hover:transform hover:-translate-y-2 transition-all duration-500 neon-border group">
+                        <div class="text-4xl mb-4 group-hover:scale-110 transition-transform duration-300">🔍</div>
+                        <h3 class="text-xl font-bold mb-3 group-hover:gradient-text transition-colors duration-300">SEO
+                            Optimization</h3>
+                        <p class="text-gray-400 mb-4">Comprehensive SEO strategies to improve your search rankings,
+                            increase organic traffic, and grow your online presence.</p>
+                        <div class="flex justify-between items-center">
+                            <a href="#portfolio"
+                                class="text-cyan-400 hover:text-cyan-300 font-medium inline-flex items-center group-hover:neon-text transition-all duration-300">
+                                View Examples
+                                <i class="fas fa-arrow-right ml-1"></i>
+                            </a>
+                            <span class="text-sm text-gray-500">Starting at $199</span>
+                        </div>
+                    </div>
+
+                    <div
+                        class="service-card glass rounded-2xl p-6 hover:transform hover:-translate-y-2 transition-all duration-500 neon-border group">
+                        <div class="text-4xl mb-4 group-hover:scale-110 transition-transform duration-300">📱</div>
+                        <h3 class="text-xl font-bold mb-3 group-hover:gradient-text transition-colors duration-300">
+                            Social Media Management</h3>
+                        <p class="text-gray-400 mb-4">Complete management of your social media presence including
+                            content creation, posting schedules, and community engagement.</p>
+                        <div class="flex justify-between items-center">
+                            <a href="#portfolio"
+                                class="text-cyan-400 hover:text-cyan-300 font-medium inline-flex items-center group-hover:neon-text transition-all duration-300">
+                                View Examples
+                                <i class="fas fa-arrow-right ml-1"></i>
+                            </a>
+                            <span class="text-sm text-gray-500">Starting at $299/mo</span>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Service CTA -->
+                <div class="text-center mt-12">
+                    <p class="text-gray-400 mb-6">Not sure which service you need? We can help!</p>
+                    <a href="#contact"
+                        class="inline-flex items-center px-6 py-3 rounded-full gradient-bg text-white font-medium hover:shadow-lg hover:neon-glow transition-all duration-300">
+                        <i class="fas fa-comments mr-2"></i>
+                        Get a Free Consultation
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <!-- Portfolio Section -->
+        <section id="portfolio" class="section-padding bg-gray-900 bg-opacity-50">
+            <div class="container mx-auto px-4">
+                <h2 class="section-heading text-3xl md:text-4xl font-bold text-center mb-4 gradient-text">Our Portfolio
+                </h2>
+                <p class="text-xl text-gray-400 text-center mb-12 max-w-2xl mx-auto">
+                    See how we've helped businesses achieve their goals through creative solutions
+                </p>
+
+                <!-- Portfolio Filter -->
+                <div class="flex flex-wrap justify-center gap-2 mb-12">
+                    <button
+                        class="portfolio-filter px-4 py-2 rounded-full glass text-white font-medium hover:gradient-bg transition-all duration-300 active"
+                        data-filter="all">
+                        All
+                    </button>
+                    <button
+                        class="portfolio-filter px-4 py-2 rounded-full glass text-white font-medium hover:gradient-bg transition-all duration-300"
+                        data-filter="video">
+                        Video
+                    </button>
+                    <button
+                        class="portfolio-filter px-4 py-2 rounded-full glass text-white font-medium hover:gradient-bg transition-all duration-300"
+                        data-filter="ads">
+                        Ads
+                    </button>
+                    <button
+                        class="portfolio-filter px-4 py-2 rounded-full glass text-white font-medium hover:gradient-bg transition-all duration-300"
+                        data-filter="graphics">
+                        Graphics
+                    </button>
+                    <button
+                        class="portfolio-filter px-4 py-2 rounded-full glass text-white font-medium hover:gradient-bg transition-all duration-300"
+                        data-filter="thumbnails">
+                        Thumbnails
+                    </button>
+                    <button
+                        class="portfolio-filter px-4 py-2 rounded-full glass text-white font-medium hover:gradient-bg transition-all duration-300"
+                        data-filter="seo">
+                        SEO
+                    </button>
+                    <button
+                        class="portfolio-filter px-4 py-2 rounded-full glass text-white font-medium hover:gradient-bg transition-all duration-300"
+                        data-filter="social">
+                        Social
+                    </button>
+                </div>
+
+                <!-- Portfolio Grid -->
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6" id="portfolio-grid">
+                    <!-- Portfolio items will be generated by JavaScript -->
+                </div>
+
+                <!-- Load More Button -->
+                <div class="text-center mt-12">
+                    <button id="load-more"
+                        class="px-6 py-3 rounded-full glass text-white font-medium hover:gradient-bg transition-all duration-300">
+                        <i class="fas fa-plus mr-2"></i>
+                        Load More Projects
+                    </button>
+                </div>
+            </div>
+        </section>
+
+        <!-- About / Founders Section -->
+        <section id="about" class="section-padding">
+            <div class="container mx-auto px-4">
+                <h2 class="section-heading text-3xl md:text-4xl font-bold text-center mb-4 gradient-text">Meet Our
+                    Founders</h2>
+                <p class="text-xl text-gray-400 text-center mb-12 max-w-2xl mx-auto">
+                    The creative minds behind EditCraft's success
+                </p>
+
+                <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+                    <div
+                        class="founder-card glass rounded-2xl p-6 text-center group hover:transform hover:-translate-y-2 transition-all duration-500 neon-border">
+                        <div
+                            class="w-32 h-32 rounded-full overflow-hidden mx-auto mb-6 border-4 border-transparent group-hover:neon-glow transition-all duration-300">
+                            <img src="https://placehold.co/200x200/1a1a2e/00f3ff?text=V" alt="Vishal Mehra"
+                                class="w-full h-full object-cover zoom-image">
+                        </div>
+                        <h3 class="text-2xl font-bold mb-2 group-hover:gradient-text transition-colors duration-300">
+                            Vishal Mehra</h3>
+                        <p class="text-cyan-400 mb-4">Creative Director & Video Specialist</p>
+                        <p class="text-gray-400 mb-6">With over 8 years in video production and editing, Vishal leads
+                            our creative vision with expertise in cinematic storytelling and brand development.</p>
+
+                        <div class="mb-6">
+                            <h4 class="text-lg font-bold mb-3 gradient-text">Key Skills</h4>
+                            <div class="flex flex-wrap justify-center gap-2">
+                                <span class="px-3 py-1 bg-gray-800 rounded-full text-sm">Video Editing</span>
+                                <span class="px-3 py-1 bg-gray-800 rounded-full text-sm">Color Grading</span>
+                                <span class="px-3 py-1 bg-gray-800 rounded-full text-sm">Motion Graphics</span>
+                                <span class="px-3 py-1 bg-gray-800 rounded-full text-sm">Creative Direction</span>
+                            </div>
+                        </div>
+
+                        <div class="flex justify-center space-x-4">
+                            <a href="#"
+                                class="text-gray-400 hover:text-white hover:neon-text transition-all duration-300"
+                                aria-label="LinkedIn">
+                                <i class="fab fa-linkedin-in text-xl"></i>
+                            </a>
+                            <a href="#"
+                                class="text-gray-400 hover:text-white hover:neon-text transition-all duration-300"
+                                aria-label="Instagram">
+                                <i class="fab fa-instagram text-xl"></i>
+                            </a>
+                            <a href="#"
+                                class="text-gray-400 hover:text-white hover:neon-text transition-all duration-300"
+                                aria-label="YouTube">
+                                <i class="fab fa-youtube text-xl"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div
+                        class="founder-card glass rounded-2xl p-6 text-center group hover:transform hover:-translate-y-2 transition-all duration-500 neon-border">
+                        <div
+                            class="w-32 h-32 rounded-full overflow-hidden mx-auto mb-6 border-4 border-transparent group-hover:neon-glow transition-all duration-300">
+                            <img src="https://placehold.co/200x200/1a1a2e/00f3ff?text=A" alt="Aman Gautam"
+                                class="w-full h-full object-cover zoom-image">
+                        </div>
+                        <h3 class="text-2xl font-bold mb-2 group-hover:gradient-text transition-colors duration-300">
+                            Aman Gautam</h3>
+                        <p class="text-cyan-400 mb-4">Web Development & SEO Strategist</p>
+                        <p class="text-gray-400 mb-6">Aman specializes in creating high-performance websites and
+                            implementing SEO strategies that drive organic growth and maximize online visibility.</p>
+
+                        <div class="mb-6">
+                            <h4 class="text-lg font-bold mb-3 gradient-text">Key Skills</h4>
+                            <div class="flex flex-wrap justify-center gap-2">
+                                <span class="px-3 py-1 bg-gray-800 rounded-full text-sm">Web Development</span>
+                                <span class="px-3 py-1 bg-gray-800 rounded-full text-sm">SEO</span>
+                                <span class="px-3 py-1 bg-gray-800 rounded-full text-sm">UI/UX Design</span>
+                                <span class="px-3 py-1 bg-gray-800 rounded-full text-sm">Digital Strategy</span>
+                            </div>
+                        </div>
+
+                        <div class="flex justify-center space-x-4">
+                            <a href="#"
+                                class="text-gray-400 hover:text-white hover:neon-text transition-all duration-300"
+                                aria-label="LinkedIn">
+                                <i class="fab fa-linkedin-in text-xl"></i>
+                            </a>
+                            <a href="#"
+                                class="text-gray-400 hover:text-white hover:neon-text transition-all duration-300"
+                                aria-label="Instagram">
+                                <i class="fab fa-instagram text-xl"></i>
+                            </a>
+                            <a href="#"
+                                class="text-gray-400 hover:text-white hover:neon-text transition-all duration-300"
+                                aria-label="Twitter">
+                                <i class="fab fa-twitter text-xl"></i>
+                            </a>
+                        </div>
+                    </div>
+
+                    <div
+                        class="founder-card glass rounded-2xl p-6 text-center group hover:transform hover:-translate-y-2 transition-all duration-500 neon-border">
+                        <div
+                            class="w-32 h-32 rounded-full overflow-hidden mx-auto mb-6 border-4 border-transparent group-hover:neon-glow transition-all duration-300">
+                            <img src="https://placehold.co/200x200/1a1a2e/00f3ff?text=Ar" alt="Arpit Gautam"
+                                class="w-full h-full object-cover zoom-image">
+                        </div>
+                        <h3 class="text-2xl font-bold mb-2 group-hover:gradient-text transition-colors duration-300">
+                            Arpit Gautam</h3>
+                        <p class="text-cyan-400 mb-4">Graphic Design & Social Media Expert</p>
+                        <p class="text-gray-400 mb-6">Arpit combines artistic talent with marketing knowledge to create
+                            compelling visual content that engages audiences and strengthens brand identity.</p>
+
+                        <div class="mb-6">
+                            <h4 class="text-lg font-bold mb-3 gradient-text">Key Skills</h4>
+                            <div class="flex flex-wrap justify-center gap-2">
+                                <span class="px-3 py-1 bg-gray-800 rounded-full text-sm">Graphic Design</span>
+                                <span class="px-3 py-1 bg-gray-800 rounded-full text-sm">Social Media</span>
+                                <span class="px-3 py-1 bg-gray-800 rounded-full text-sm">Brand Identity</span>
+                                <span class="px-3 py-1 bg-gray-800 rounded-full text-sm">Thumbnail Design</span>
+                            </div>
+                        </div>
+
+                        <div class="flex justify-center space-x-4">
+                            <a href="#"
+                                class="text-gray-400 hover:text-white hover:neon-text transition-all duration-300"
+                                aria-label="LinkedIn">
+                                <i class="fab fa-linkedin-in text-xl"></i>
+                            </a>
+                            <a href="#"
+                                class="text-gray-400 hover:text-white hover:neon-text transition-all duration-300"
+                                aria-label="Instagram">
+                                <i class="fab fa-instagram text-xl"></i>
+                            </a>
+                            <a href="#"
+                                class="text-gray-400 hover:text-white hover:neon-text transition-all duration-300"
+                                aria-label="Dribbble">
+                                <i class="fab fa-dribbble text-xl"></i>
+                            </a>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Company Story -->
+                <div class="glass rounded-2xl p-8 mt-12 neon-border">
+                    <h3 class="text-2xl font-bold mb-6 gradient-text text-center">Our Story</h3>
+                    <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+                        <div>
+                            <p class="text-gray-300 mb-4">
+                                EditCraft was founded in 2018 with a simple mission: to help businesses and creators
+                                tell their stories through compelling visuals. What started as a small team of three
+                                passionate creators has grown into a full-service creative agency.
+                            </p>
+                            <p class="text-gray-300 mb-4">
+                                We believe that great visuals have the power to transform businesses, build communities,
+                                and create lasting impact. Our approach combines technical expertise with creative
+                                storytelling to deliver results that exceed expectations.
+                            </p>
+                            <p class="text-gray-300">
+                                Today, we've worked with over 200 clients across various industries, from startups to
+                                established brands, helping them achieve their marketing and communication goals through
+                                our diverse range of services.
+                            </p>
+                        </div>
+                        <div class="grid grid-cols-2 gap-4">
+                            <div class="glass rounded-xl p-4 text-center">
+                                <div class="text-3xl font-bold gradient-text mb-2">5+</div>
+                                <p class="text-gray-400">Years in Business</p>
+                            </div>
+                            <div class="glass rounded-xl p-4 text-center">
+                                <div class="text-3xl font-bold gradient-text mb-2">200+</div>
+                                <p class="text-gray-400">Happy Clients</p>
+                            </div>
+                            <div class="glass rounded-xl p-4 text-center">
+                                <div class="text-3xl font-bold gradient-text mb-2">500+</div>
+                                <p class="text-gray-400">Projects Completed</p>
+                            </div>
+                            <div class="glass rounded-xl p-4 text-center">
+                                <div class="text-3xl font-bold gradient-text mb-2">15+</div>
+                                <p class="text-gray-400">Industry Awards</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Contact Section -->
+        <section id="contact" class="section-padding bg-gray-900 bg-opacity-50">
+            <div class="container mx-auto px-4">
+                <h2 class="section-heading text-3xl md:text-4xl font-bold text-center mb-4 gradient-text">Get In Touch
+                </h2>
+                <p class="text-xl text-gray-400 text-center mb-12 max-w-2xl mx-auto">
+                    Ready to transform your visual presence? Let's discuss your project.
+                </p>
+
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+                    <!-- Contact Information -->
+                    <div>
+                        <h3 class="text-2xl font-bold mb-6 gradient-text">Contact Information</h3>
+
+                        <div class="space-y-6 mb-8">
+                            <div class="flex items-start">
+                                <div class="glass rounded-full p-3 mr-4">
+                                    <i class="fas fa-map-marker-alt text-cyan-400"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-white mb-1">Our Location</h4>
+                                    <p class="text-gray-400">123 Creative Street, Design District<br>Mumbai, MH 400001,
+                                        India</p>
+                                </div>
+                            </div>
+
+                            <div class="flex items-start">
+                                <div class="glass rounded-full p-3 mr-4">
+                                    <i class="fas fa-phone text-cyan-400"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-white mb-1">Phone Number</h4>
+                                    <p class="text-gray-400">+91 98765 43210</p>
+                                </div>
+                            </div>
+
+                            <div class="flex items-start">
+                                <div class="glass rounded-full p-3 mr-4">
+                                    <i class="fas fa-envelope text-cyan-400"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-white mb-1">Email Address</h4>
+                                    <p class="text-gray-400">hello@editcraft.com</p>
+                                </div>
+                            </div>
+
+                            <div class="flex items-start">
+                                <div class="glass rounded-full p-3 mr-4">
+                                    <i class="fas fa-clock text-cyan-400"></i>
+                                </div>
+                                <div>
+                                    <h4 class="font-bold text-white mb-1">Working Hours</h4>
+                                    <p class="text-gray-400">Monday - Friday: 9AM - 6PM<br>Saturday: 10AM - 4PM</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="glass rounded-2xl p-6 neon-border">
+                            <h4 class="font-bold text-white mb-4">Follow Us</h4>
+                            <div class="flex space-x-4">
+                                <a href="#"
+                                    class="text-gray-400 hover:text-white hover:neon-text transition-all duration-300"
+                                    aria-label="LinkedIn">
+                                    <i class="fab fa-linkedin-in text-xl"></i>
+                                </a>
+                                <a href="#"
+                                    class="text-gray-400 hover:text-white hover:neon-text transition-all duration-300"
+                                    aria-label="Instagram">
+                                    <i class="fab fa-instagram text-xl"></i>
+                                </a>
+                                <a href="#"
+                                    class="text-gray-400 hover:text-white hover:neon-text transition-all duration-300"
+                                    aria-label="YouTube">
+                                    <i class="fab fa-youtube text-xl"></i>
+                                </a>
+                                <a href="#"
+                                    class="text-gray-400 hover:text-white hover:neon-text transition-all duration-300"
+                                    aria-label="Twitter">
+                                    <i class="fab fa-twitter text-xl"></i>
+                                </a>
+                                <a href="#"
+                                    class="text-gray-400 hover:text-white hover:neon-text transition-all duration-300"
+                                    aria-label="Dribbble">
+                                    <i class="fab fa-dribbble text-xl"></i>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Contact Form -->
+                    <div>
+                        <div id="form-success" class="glass rounded-2xl p-8 text-center neon-border mb-8 hidden">
+                            <div class="text-5xl mb-4">🎉</div>
+                            <h3 class="text-2xl font-bold mb-4 gradient-text">Thank You!</h3>
+                            <p class="text-gray-300 mb-6" id="success-message">Thank you for your message! We will get
+                                back to you within 24 hours.</p>
+                            <button id="back-to-form"
+                                class="px-6 py-3 rounded-full gradient-bg text-white font-medium hover:shadow-lg hover:neon-glow transition-all duration-300">
+                                Back to Form
+                            </button>
+                        </div>
+
+                        <div id="form-error" class="glass rounded-2xl p-4 mb-6 border-l-4 border-red-500 hidden">
+                            <p class="text-red-400" id="error-message"></p>
+                        </div>
+
+                        <form id="contact-form" class="glass rounded-2xl p-6 md:p-8 neon-border form-container">
+                            <!-- Honeypot field for spam prevention -->
+                            <div class="hidden">
+                                <label for="website">Website</label>
+                                <input type="text" id="website" name="website" tabindex="-1" autocomplete="off">
+                            </div>
+
+                            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-6">
+                                <div>
+                                    <label for="name" class="block text-gray-300 mb-2">Your Name *</label>
+                                    <input type="text" id="name" name="name" required
+                                        class="form-input w-full px-4 py-3 rounded-lg bg-gray-800 border border-gray-700 text-white focus:outline-none focus:border-cyan-500 transition-colors duration-300"
+                                        placeholder="Enter your name">
+                                </div>
+                                <div>
+                                    <label for="email" class="block text-gray-300 mb-2">Your Email *</label>
+                                    <input type="email" id="email" name="email" required
+                                        class="form-input w-full px-4 py-3 rounded-lg bg-gray-800 border border-gray-700 text-white focus:outline-none focus:border-cyan-500 transition-colors duration-300"
+                                        placeholder="Enter your email">
+                                </div>
+                            </div>
+
+                            <div class="mb-6">
+                                <label for="subject" class="block text-gray-300 mb-2">Subject *</label>
+                                <input type="text" id="subject" name="subject" required
+                                    class="form-input w-full px-4 py-3 rounded-lg bg-gray-800 border border-gray-700 text-white focus:outline-none focus:border-cyan-500 transition-colors duration-300"
+                                    placeholder="Enter subject">
+                            </div>
+
+                            <div class="mb-8">
+                                <label for="message" class="block text-gray-300 mb-2">Your Message *</label>
+                                <textarea id="message" name="message" rows="6" required
+                                    class="form-input w-full px-4 py-3 rounded-lg bg-gray-800 border border-gray-700 text-white focus:outline-none focus:border-cyan-500 transition-colors duration-300 resize-none"
+                                    placeholder="Enter your message"></textarea>
+                            </div>
+
+                            <button type="submit" id="submit-button"
+                                class="w-full py-4 rounded-full gradient-bg text-white font-bold text-lg hover:shadow-lg hover:neon-glow transition-all duration-300 cursor-pointer flex items-center justify-center">
+                                <span id="submit-text">Send Message</span>
+                                <div id="submit-spinner" class="loading-spinner ml-2 hidden"></div>
+                            </button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <!-- Portfolio Modal -->
+    <div id="portfolio-modal" class="portfolio-modal">
+        <div class="container mx-auto px-4 py-8">
+            <div class="glass rounded-2xl p-6 md:p-8 neon-border overflow-hidden modal-content">
+                <button id="close-modal"
+                    class="absolute top-4 right-4 text-gray-400 hover:text-white text-2xl z-10 bg-gray-900 rounded-full w-10 h-10 flex items-center justify-center">
+                    <i class="fas fa-times"></i>
+                </button>
+                <div id="modal-content" class="pt-4">
+                    <!-- Modal content will be populated by JavaScript -->
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="bg-gray-900 bg-opacity-70 py-12">
+        <div class="container mx-auto px-4">
+            <div class="grid grid-cols-1 md:grid-cols-4 gap-8">
+                <div class="md:col-span-2">
+                    <a href="#home"
+                        class="text-2xl font-bold gradient-text neon-text mb-4 inline-block flex items-center">
+                        <i class="fas fa-play-circle mr-2"></i>
+                        EditCraft
+                    </a>
+                    <p class="text-gray-400 mb-6 max-w-md">
+                        Crafting visuals that convert through premium video editing, web design, and digital marketing
+                        solutions.
+                    </p>
+                    <div class="flex space-x-4">
+                        <a href="#" class="text-gray-400 hover:text-white hover:neon-text transition-all duration-300"
+                            aria-label="LinkedIn">
+                            <i class="fab fa-linkedin-in text-xl"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white hover:neon-text transition-all duration-300"
+                            aria-label="Instagram">
+                            <i class="fab fa-instagram text-xl"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white hover:neon-text transition-all duration-300"
+                            aria-label="YouTube">
+                            <i class="fab fa-youtube text-xl"></i>
+                        </a>
+                        <a href="#" class="text-gray-400 hover:text-white hover:neon-text transition-all duration-300"
+                            aria-label="Twitter">
+                            <i class="fab fa-twitter text-xl"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div>
+                    <h3 class="text-lg font-bold mb-4 gradient-text">Quick Links</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#home"
+                                class="text-gray-400 hover:text-white transition-colors duration-300 flex items-center">
+                                <i class="fas fa-chevron-right mr-2 text-xs"></i>
+                                Home
+                            </a></li>
+                        <li><a href="#services"
+                                class="text-gray-400 hover:text-white transition-colors duration-300 flex items-center">
+                                <i class="fas fa-chevron-right mr-2 text-xs"></i>
+                                Services
+                            </a></li>
+                        <li><a href="#portfolio"
+                                class="text-gray-400 hover:text-white transition-colors duration-300 flex items-center">
+                                <i class="fas fa-chevron-right mr-2 text-xs"></i>
+                                Portfolio
+                            </a></li>
+                        <li><a href="#about"
+                                class="text-gray-400 hover:text-white transition-colors duration-300 flex items-center">
+                                <i class="fas fa-chevron-right mr-2 text-xs"></i>
+                                About
+                            </a></li>
+                        <li><a href="#contact"
+                                class="text-gray-400 hover:text-white transition-colors duration-300 flex items-center">
+                                <i class="fas fa-chevron-right mr-2 text-xs"></i>
+                                Contact
+                            </a></li>
+                    </ul>
+                </div>
+
+                <div>
+                    <h3 class="text-lg font-bold mb-4 gradient-text">Services</h3>
+                    <ul class="space-y-2">
+                        <li><a href="#services"
+                                class="text-gray-400 hover:text-white transition-colors duration-300 flex items-center">
+                                <i class="fas fa-chevron-right mr-2 text-xs"></i>
+                                Video Editing
+                            </a></li>
+                        <li><a href="#services"
+                                class="text-gray-400 hover:text-white transition-colors duration-300 flex items-center">
+                                <i class="fas fa-chevron-right mr-2 text-xs"></i>
+                                Web Design
+                            </a></li>
+                        <li><a href="#services"
+                                class="text-gray-400 hover:text-white transition-colors duration-300 flex items-center">
+                                <i class="fas fa-chevron-right mr-2 text-xs"></i>
+                                Graphic Design
+                            </a></li>
+                        <li><a href="#services"
+                                class="text-gray-400 hover:text-white transition-colors duration-300 flex items-center">
+                                <i class="fas fa-chevron-right mr-2 text-xs"></i>
+                                Thumbnail Creation
+                            </a></li>
+                        <li><a href="#services"
+                                class="text-gray-400 hover:text-white transition-colors duration-300 flex items-center">
+                                <i class="fas fa-chevron-right mr-2 text-xs"></i>
+                                SEO Optimization
+                            </a></li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="border-t border-gray-800 mt-8 pt-8 text-center">
+                <p class="text-gray-500">&copy; <span id="current-year">2023</span> EditCraft. All rights reserved.</p>
+            </div>
+        </div>
+    </footer>
+
+    <!-- JavaScript -->
+    <script>
+        // Portfolio data
+        const portfolioItems = [
+            {
+                id: 1,
+                title: 'Video editing sample 1',
+                category: 'video',
+                media: '1.png',
+                media_type: 'image',
+                client: 'InnovateTech Solutions',
+                problem: 'The client needed an engaging explainer video to showcase their complex SaaS platform to potential investors and customers.',
+                solution: 'We created a 2-minute animated explainer video using dynamic motion graphics and clear narration that simplified their complex technology.',
+                results: '35% increase in demo requests and 20% higher conversion rate on their landing page.',
+                testimonial: 'EditCraft transformed our complex platform into an engaging story that resonates with both technical and non-technical audiences.',
+                tools: ['After Effects', 'Premiere Pro', 'Illustrator'],
+                team: ['Vishal Mehra', 'Arpit Gautam'],
+                date: '2023-11-15',
+                video_url: 'video_1.mp4'
+            },
+            {
+                id: 2,
+                title: 'Video editing sample 2',
+                category: 'video',
+                media: '2.png',
+                media_type: 'image',
+                client: 'InnovateTech Solutions',
+                problem: 'The client needed an engaging explainer video to showcase their complex SaaS platform to potential investors and customers.',
+                solution: 'We created a 2-minute animated explainer video using dynamic motion graphics and clear narration that simplified their complex technology.',
+                results: '35% increase in demo requests and 20% higher conversion rate on their landing page.',
+                testimonial: 'EditCraft transformed our complex platform into an engaging story that resonates with both technical and non-technical audiences.',
+                tools: ['After Effects', 'Premiere Pro', 'Illustrator'],
+                team: ['Vishal Mehra', 'Arpit Gautam'],
+                date: '2023-11-15',
+                video_url: 'video_2.mp4'
+            },
+            {
+                id: 3,
+                title: 'Video editing sample 1',
+                category: 'video',
+                media: '3.png',
+                media_type: 'image',
+                client: 'InnovateTech Solutions',
+                problem: 'The client needed an engaging explainer video to showcase their complex SaaS platform to potential investors and customers.',
+                solution: 'We created a 2-minute animated explainer video using dynamic motion graphics and clear narration that simplified their complex technology.',
+                results: '35% increase in demo requests and 20% higher conversion rate on their landing page.',
+                testimonial: 'EditCraft transformed our complex platform into an engaging story that resonates with both technical and non-technical audiences.',
+                tools: ['After Effects', 'Premiere Pro', 'Illustrator'],
+                team: ['Vishal Mehra', 'Arpit Gautam'],
+                date: '2023-11-15',
+                video_url: 'video_3.mp4'
+            },
+            {
+                id: 4,
+                title: 'Video editing sample 2',
+                category: 'video',
+                media: '4.jpg',
+                media_type: 'image',
+                client: 'InnovateTech Solutions',
+                problem: 'The client needed an engaging explainer video to showcase their complex SaaS platform to potential investors and customers.',
+                solution: 'We created a 2-minute animated explainer video using dynamic motion graphics and clear narration that simplified their complex technology.',
+                results: '35% increase in demo requests and 20% higher conversion rate on their landing page.',
+                testimonial: 'EditCraft transformed our complex platform into an engaging story that resonates with both technical and non-technical audiences.',
+                tools: ['After Effects', 'Premiere Pro', 'Illustrator'],
+                team: ['Vishal Mehra', 'Arpit Gautam'],
+                date: '2023-11-15',
+                video_url: 'video_4.mp4'
+            },
+            {
+                id: 5,
+                title: 'Video editing sample 1',
+                category: 'video',
+                media: '5.jpg',
+                media_type: 'image',
+                client: 'InnovateTech Solutions',
+                problem: 'The client needed an engaging explainer video to showcase their complex SaaS platform to potential investors and customers.',
+                solution: 'We created a 2-minute animated explainer video using dynamic motion graphics and clear narration that simplified their complex technology.',
+                results: '35% increase in demo requests and 20% higher conversion rate on their landing page.',
+                testimonial: 'EditCraft transformed our complex platform into an engaging story that resonates with both technical and non-technical audiences.',
+                tools: ['After Effects', 'Premiere Pro', 'Illustrator'],
+                team: ['Vishal Mehra', 'Arpit Gautam'],
+                date: '2023-11-15',
+                video_url: 'video_5.mp4'
+            },
+            {
+                id: 6,
+                title: 'Video editing sample 2',
+                category: 'video',
+                media: '6.png',
+                media_type: 'image',
+                client: 'InnovateTech Solutions',
+                problem: 'The client needed an engaging explainer video to showcase their complex SaaS platform to potential investors and customers.',
+                solution: 'We created a 2-minute animated explainer video using dynamic motion graphics and clear narration that simplified their complex technology.',
+                results: '35% increase in demo requests and 20% higher conversion rate on their landing page.',
+                testimonial: 'EditCraft transformed our complex platform into an engaging story that resonates with both technical and non-technical audiences.',
+                tools: ['After Effects', 'Premiere Pro', 'Illustrator'],
+                team: ['Vishal Mehra', 'Arpit Gautam'],
+                date: '2023-11-15',
+                video_url: 'video_6.mp4'
+            },
+            {
+                id: 7,
+                title: 'E-commerce Website Redesign',
+                category: 'ads',
+                media: 'A1.png',
+                media_type: 'image',
+                client: 'UrbanStyle Fashion',
+                problem: 'The client\'s outdated website had high bounce rates and poor mobile experience, leading to lost sales.',
+                solution: 'We completely redesigned their e-commerce platform with a mobile-first approach, improved navigation, and faster loading times.',
+                results: 'Mobile conversions increased by 62% and overall sales grew by 28% within 3 months.',
+                testimonial: 'The new website not only looks amazing but performs even better. Our customers love the seamless shopping experience.',
+                tools: ['Figma', 'WordPress', 'CSS3', 'JavaScript'],
+                team: ['Aman Gautam', 'Arpit Gautam'],
+                date: '2023-09-22',
+                video_url: 'Ads_1.mp4'
+            },
+            {
+                id: 8,
+                title: 'E-commerce Website Redesign',
+                category: 'ads',
+                media: 'A2.png',
+                media_type: 'image',
+                client: 'UrbanStyle Fashion',
+                problem: 'The client\'s outdated website had high bounce rates and poor mobile experience, leading to lost sales.',
+                solution: 'We completely redesigned their e-commerce platform with a mobile-first approach, improved navigation, and faster loading times.',
+                results: 'Mobile conversions increased by 62% and overall sales grew by 28% within 3 months.',
+                testimonial: 'The new website not only looks amazing but performs even better. Our customers love the seamless shopping experience.',
+                tools: ['Figma', 'WordPress', 'CSS3', 'JavaScript'],
+                team: ['Aman Gautam', 'Arpit Gautam'],
+                date: '2023-09-22',
+                video_url: 'Ads_2.mp4'
+            },
+            {
+                id: 9,
+                title: 'E-commerce Website Redesign',
+                category: 'ads',
+                media: 'A3.png',
+                media_type: 'image',
+                client: 'UrbanStyle Fashion',
+                problem: 'The client\'s outdated website had high bounce rates and poor mobile experience, leading to lost sales.',
+                solution: 'We completely redesigned their e-commerce platform with a mobile-first approach, improved navigation, and faster loading times.',
+                results: 'Mobile conversions increased by 62% and overall sales grew by 28% within 3 months.',
+                testimonial: 'The new website not only looks amazing but performs even better. Our customers love the seamless shopping experience.',
+                tools: ['Figma', 'WordPress', 'CSS3', 'JavaScript'],
+                team: ['Aman Gautam', 'Arpit Gautam'],
+                date: '2023-09-22',
+                video_url: 'Ads_3.mp4'
+            },
+            {
+                id: 10,
+                title: 'E-commerce Website Redesign',
+                category: 'ads',
+                media: 'A4.png',
+                media_type: 'image',
+                client: 'UrbanStyle Fashion',
+                problem: 'The client\'s outdated website had high bounce rates and poor mobile experience, leading to lost sales.',
+                solution: 'We completely redesigned their e-commerce platform with a mobile-first approach, improved navigation, and faster loading times.',
+                results: 'Mobile conversions increased by 62% and overall sales grew by 28% within 3 months.',
+                testimonial: 'The new website not only looks amazing but performs even better. Our customers love the seamless shopping experience.',
+                tools: ['Figma', 'WordPress', 'CSS3', 'JavaScript'],
+                team: ['Aman Gautam', 'Arpit Gautam'],
+                date: '2023-09-22',
+                video_url: 'Ads_4.mp4'
+            },
+            {
+                id: 11,
+                title: 'E-commerce Website Redesign',
+                category: 'ads',
+                media: 'A5.png',
+                media_type: 'image',
+                client: 'UrbanStyle Fashion',
+                problem: 'The client\'s outdated website had high bounce rates and poor mobile experience, leading to lost sales.',
+                solution: 'We completely redesigned their e-commerce platform with a mobile-first approach, improved navigation, and faster loading times.',
+                results: 'Mobile conversions increased by 62% and overall sales grew by 28% within 3 months.',
+                testimonial: 'The new website not only looks amazing but performs even better. Our customers love the seamless shopping experience.',
+                tools: ['Figma', 'WordPress', 'CSS3', 'JavaScript'],
+                team: ['Aman Gautam', 'Arpit Gautam'],
+                date: '2023-09-22',
+                video_url: 'Ads_5.mp4'
+            },
+            {
+                id: 12,
+                title: 'Restaurant Food Flyer Design',
+                category: 'graphics',
+                media: 'Graphics_1.jpeg',
+                media_type: 'image',
+                client: 'Bloom Wellness',
+                problem: 'A new wellness brand needed a complete visual identity that communicated their values of nature, health, and mindfulness.',
+                solution: 'We developed a comprehensive brand package including logo, color palette, typography, and marketing collateral with a natural, calming aesthetic.',
+                results: 'The brand achieved 85% recognition in their target market within 6 months of launch.',
+                testimonial: 'EditCraft perfectly captured our brand essence. The visual identity resonates deeply with our target audience.',
+                tools: ['Illustrator', 'Photoshop', 'InDesign'],
+                team: ['Arpit Gautam'],
+                date: '2023-10-05',
+                video_url: 'Graphics_1.jpeg'
+            },
+            {
+                id: 13,
+                title: 'Brand Identity Package',
+                category: 'graphics',
+                media: 'Graphics_2.jpeg',
+                media_type: 'image',
+                client: 'Bloom Wellness',
+                problem: 'A new wellness brand needed a complete visual identity that communicated their values of nature, health, and mindfulness.',
+                solution: 'We developed a comprehensive brand package including logo, color palette, typography, and marketing collateral with a natural, calming aesthetic.',
+                results: 'The brand achieved 85% recognition in their target market within 6 months of launch.',
+                testimonial: 'EditCraft perfectly captured our brand essence. The visual identity resonates deeply with our target audience.',
+                tools: ['Illustrator', 'Photoshop', 'InDesign'],
+                team: ['Arpit Gautam'],
+                date: '2023-10-05',
+                video_url: 'Graphics_2.jpeg'
+            },
+            {
+                id: 14,
+                title: 'Brand Identity Package',
+                category: 'graphics',
+                media: 'Graphics_3.jpeg',
+                media_type: 'image',
+                client: 'Bloom Wellness',
+                problem: 'A new wellness brand needed a complete visual identity that communicated their values of nature, health, and mindfulness.',
+                solution: 'We developed a comprehensive brand package including logo, color palette, typography, and marketing collateral with a natural, calming aesthetic.',
+                results: 'The brand achieved 85% recognition in their target market within 6 months of launch.',
+                testimonial: 'EditCraft perfectly captured our brand essence. The visual identity resonates deeply with our target audience.',
+                tools: ['Illustrator', 'Photoshop', 'InDesign'],
+                team: ['Arpit Gautam'],
+                date: '2023-10-05',
+                video_url: 'Graphics_3.jpeg'
+            },
+            {
+                id: 15,
+                title: 'Brand Identity Package',
+                category: 'graphics',
+                media: 'Graphics_4.jpeg',
+                media_type: 'image',
+                client: 'Bloom Wellness',
+                problem: 'A new wellness brand needed a complete visual identity that communicated their values of nature, health, and mindfulness.',
+                solution: 'We developed a comprehensive brand package including logo, color palette, typography, and marketing collateral with a natural, calming aesthetic.',
+                results: 'The brand achieved 85% recognition in their target market within 6 months of launch.',
+                testimonial: 'EditCraft perfectly captured our brand essence. The visual identity resonates deeply with our target audience.',
+                tools: ['Illustrator', 'Photoshop', 'InDesign'],
+                team: ['Arpit Gautam'],
+                date: '2023-10-05',
+                video_url: 'Graphics_4.jpeg'
+            },
+            {
+                id: 16,
+                title: 'Brand Identity Package',
+                category: 'graphics',
+                media: 'Graphics_5.jpeg',
+                media_type: 'image',
+                client: 'Bloom Wellness',
+                problem: 'A new wellness brand needed a complete visual identity that communicated their values of nature, health, and mindfulness.',
+                solution: 'We developed a comprehensive brand package including logo, color palette, typography, and marketing collateral with a natural, calming aesthetic.',
+                results: 'The brand achieved 85% recognition in their target market within 6 months of launch.',
+                testimonial: 'EditCraft perfectly captured our brand essence. The visual identity resonates deeply with our target audience.',
+                tools: ['Illustrator', 'Photoshop', 'InDesign'],
+                team: ['Arpit Gautam'],
+                date: '2023-10-05',
+                video_url: 'Graphics_5.jpeg'
+            },
+            {
+                id: 17,
+                title: 'Brand Identity Package',
+                category: 'graphics',
+                media: 'Graphics_6.jpeg',
+                media_type: 'image',
+                client: 'Bloom Wellness',
+                problem: 'A new wellness brand needed a complete visual identity that communicated their values of nature, health, and mindfulness.',
+                solution: 'We developed a comprehensive brand package including logo, color palette, typography, and marketing collateral with a natural, calming aesthetic.',
+                results: 'The brand achieved 85% recognition in their target market within 6 months of launch.',
+                testimonial: 'EditCraft perfectly captured our brand essence. The visual identity resonates deeply with our target audience.',
+                tools: ['Illustrator', 'Photoshop', 'InDesign'],
+                team: ['Arpit Gautam'],
+                date: '2023-10-05',
+                video_url: 'Graphics_6.jpeg'
+            },
+            {
+                id: 18,
+                title: 'Brand Identity Package',
+                category: 'graphics',
+                media: 'Graphics_7.jpeg',
+                media_type: 'image',
+                client: 'Bloom Wellness',
+                problem: 'A new wellness brand needed a complete visual identity that communicated their values of nature, health, and mindfulness.',
+                solution: 'We developed a comprehensive brand package including logo, color palette, typography, and marketing collateral with a natural, calming aesthetic.',
+                results: 'The brand achieved 85% recognition in their target market within 6 months of launch.',
+                testimonial: 'EditCraft perfectly captured our brand essence. The visual identity resonates deeply with our target audience.',
+                tools: ['Illustrator', 'Photoshop', 'InDesign'],
+                team: ['Arpit Gautam'],
+                date: '2023-10-05',
+                video_url: 'Graphics_7.jpeg'
+            },
+            {
+                id: 19,
+                title: 'Brand Identity Package',
+                category: 'graphics',
+                media: 'Graphics_8.jpeg',
+                media_type: 'image',
+                client: 'Bloom Wellness',
+                problem: 'A new wellness brand needed a complete visual identity that communicated their values of nature, health, and mindfulness.',
+                solution: 'We developed a comprehensive brand package including logo, color palette, typography, and marketing collateral with a natural, calming aesthetic.',
+                results: 'The brand achieved 85% recognition in their target market within 6 months of launch.',
+                testimonial: 'EditCraft perfectly captured our brand essence. The visual identity resonates deeply with our target audience.',
+                tools: ['Illustrator', 'Photoshop', 'InDesign'],
+                team: ['Arpit Gautam'],
+                date: '2023-10-05',
+                video_url: 'Graphics_8.jpeg'
+            },
+            {
+                id: 20,
+                title: 'Brand Identity Package',
+                category: 'graphics',
+                media: 'Graphics_9.jpeg',
+                media_type: 'image',
+                client: 'Bloom Wellness',
+                problem: 'A new wellness brand needed a complete visual identity that communicated their values of nature, health, and mindfulness.',
+                solution: 'We developed a comprehensive brand package including logo, color palette, typography, and marketing collateral with a natural, calming aesthetic.',
+                results: 'The brand achieved 85% recognition in their target market within 6 months of launch.',
+                testimonial: 'EditCraft perfectly captured our brand essence. The visual identity resonates deeply with our target audience.',
+                tools: ['Illustrator', 'Photoshop', 'InDesign'],
+                team: ['Arpit Gautam'],
+                date: '2023-10-05',
+                video_url: 'Graphics_9.jpeg'
+            },
+            {
+                id: 21,
+                title: 'Brand Identity Package',
+                category: 'graphics',
+                media: 'Graphics_10.jpeg',
+                media_type: 'image',
+                client: 'Bloom Wellness',
+                problem: 'A new wellness brand needed a complete visual identity that communicated their values of nature, health, and mindfulness.',
+                solution: 'We developed a comprehensive brand package including logo, color palette, typography, and marketing collateral with a natural, calming aesthetic.',
+                results: 'The brand achieved 85% recognition in their target market within 6 months of launch.',
+                testimonial: 'EditCraft perfectly captured our brand essence. The visual identity resonates deeply with our target audience.',
+                tools: ['Illustrator', 'Photoshop', 'InDesign'],
+                team: ['Arpit Gautam'],
+                date: '2023-10-05',
+                video_url: 'Graphics_10.jpeg'
+            },
+            {
+                id: 22,
+                title: 'Productivity thumbnail design',
+                category: 'thumbnails',
+                media: 'thumbnail_1.jpeg',
+                media_type: 'image',
+                client: 'Finance Guru Channel',
+                problem: 'The client\'s YouTube thumbnails weren\'t attracting clicks despite having valuable content, resulting in low CTR.',
+                solution: 'We designed a series of bold, curiosity-driven thumbnails with consistent branding and psychological triggers to increase click-through rates.',
+                results: 'Average CTR increased from 3.2% to 8.7%, and subscriber growth accelerated by 140%.',
+                testimonial: 'The new thumbnails completely transformed our channel performance. We\'re getting more views with the same content!',
+                tools: ['Photoshop', 'Illustrator'],
+                team: ['Arpit Gautam', 'Vishal Mehra'],
+                date: '2023-08-14',
+                video_url: 'thumbnail_1.jpeg'
+            },
+            {
+                id: 23,
+                title: 'Productivity thumbnail design',
+                category: 'thumbnails',
+                media: 'thumbnail_2.jpeg',
+                media_type: 'image',
+                client: 'Finance Guru Channel',
+                problem: 'The client\'s YouTube thumbnails weren\'t attracting clicks despite having valuable content, resulting in low CTR.',
+                solution: 'We designed a series of bold, curiosity-driven thumbnails with consistent branding and psychological triggers to increase click-through rates.',
+                results: 'Average CTR increased from 3.2% to 8.7%, and subscriber growth accelerated by 140%.',
+                testimonial: 'The new thumbnails completely transformed our channel performance. We\'re getting more views with the same content!',
+                tools: ['Photoshop', 'Illustrator'],
+                team: ['Arpit Gautam', 'Vishal Mehra'],
+                date: '2023-08-14',
+                video_url: 'thumbnail_2.jpeg'
+            },
+            {
+                id: 24,
+                title: 'Productivity thumbnail design',
+                category: 'thumbnails',
+                media: 'thumbnail_3.jpeg',
+                media_type: 'image',
+                client: 'Finance Guru Channel',
+                problem: 'The client\'s YouTube thumbnails weren\'t attracting clicks despite having valuable content, resulting in low CTR.',
+                solution: 'We designed a series of bold, curiosity-driven thumbnails with consistent branding and psychological triggers to increase click-through rates.',
+                results: 'Average CTR increased from 3.2% to 8.7%, and subscriber growth accelerated by 140%.',
+                testimonial: 'The new thumbnails completely transformed our channel performance. We\'re getting more views with the same content!',
+                tools: ['Photoshop', 'Illustrator'],
+                team: ['Arpit Gautam', 'Vishal Mehra'],
+                date: '2023-08-14',
+                video_url: 'thumbnail_3.jpeg'
+            },
+            {
+                id: 25,
+                title: 'Productivity thumbnail design',
+                category: 'thumbnails',
+                media: 'thumbnail_4.png',
+                media_type: 'image',
+                client: 'Finance Guru Channel',
+                problem: 'The client\'s YouTube thumbnails weren\'t attracting clicks despite having valuable content, resulting in low CTR.',
+                solution: 'We designed a series of bold, curiosity-driven thumbnails with consistent branding and psychological triggers to increase click-through rates.',
+                results: 'Average CTR increased from 3.2% to 8.7%, and subscriber growth accelerated by 140%.',
+                testimonial: 'The new thumbnails completely transformed our channel performance. We\'re getting more views with the same content!',
+                tools: ['Photoshop', 'Illustrator'],
+                team: ['Arpit Gautam', 'Vishal Mehra'],
+                date: '2023-08-14',
+                video_url: 'thumbnail_4.png'
+            },
+            {
+                id: 26,
+                title: '🎙️Podcast Thumbnail Design',
+                category: 'thumbnails',
+                media: 'thumbnail_5.jpeg',
+                media_type: 'image',
+                client: 'Finance Guru Channel',
+                problem: 'The client\'s YouTube thumbnails weren\'t attracting clicks despite having valuable content, resulting in low CTR.',
+                solution: 'We designed a series of bold, curiosity-driven thumbnails with consistent branding and psychological triggers to increase click-through rates.',
+                results: 'Average CTR increased from 3.2% to 8.7%, and subscriber growth accelerated by 140%.',
+                testimonial: 'The new thumbnails completely transformed our channel performance. We\'re getting more views with the same content!',
+                tools: ['Photoshop', 'Illustrator'],
+                team: ['Arpit Gautam', 'Vishal Mehra'],
+                date: '2023-08-14',
+                video_url: 'thumbnail_5.jpeg'
+            },
+            {
+                id: 27,
+                title: 'Productivity thumbnail design',
+                category: 'thumbnails',
+                media: 'thumbnail_6.jpeg',
+                media_type: 'image',
+                client: 'Finance Guru Channel',
+                problem: 'The client\'s YouTube thumbnails weren\'t attracting clicks despite having valuable content, resulting in low CTR.',
+                solution: 'We designed a series of bold, curiosity-driven thumbnails with consistent branding and psychological triggers to increase click-through rates.',
+                results: 'Average CTR increased from 3.2% to 8.7%, and subscriber growth accelerated by 140%.',
+                testimonial: 'The new thumbnails completely transformed our channel performance. We\'re getting more views with the same content!',
+                tools: ['Photoshop', 'Illustrator'],
+                team: ['Arpit Gautam', 'Vishal Mehra'],
+                date: '2023-08-14',
+                video_url: 'thumbnail_6.jpeg'
+            },
+            {
+                id: 28,
+                title: 'Productivity thumbnail design',
+                category: 'thumbnails',
+                media: 'thumbnail_7.png',
+                media_type: 'image',
+                client: 'Finance Guru Channel',
+                problem: 'The client\'s YouTube thumbnails weren\'t attracting clicks despite having valuable content, resulting in low CTR.',
+                solution: 'We designed a series of bold, curiosity-driven thumbnails with consistent branding and psychological triggers to increase click-through rates.',
+                results: 'Average CTR increased from 3.2% to 8.7%, and subscriber growth accelerated by 140%.',
+                testimonial: 'The new thumbnails completely transformed our channel performance. We\'re getting more views with the same content!',
+                tools: ['Photoshop', 'Illustrator'],
+                team: ['Arpit Gautam', 'Vishal Mehra'],
+                date: '2023-08-14',
+                video_url: 'thumbnail_7.png'
+            },
+            {
+                id: 29,
+                title: 'Productivity thumbnail design',
+                category: 'thumbnails',
+                media: 'thumbnail_8.jpg',
+                media_type: 'image',
+                client: 'Finance Guru Channel',
+                problem: 'The client\'s YouTube thumbnails weren\'t attracting clicks despite having valuable content, resulting in low CTR.',
+                solution: 'We designed a series of bold, curiosity-driven thumbnails with consistent branding and psychological triggers to increase click-through rates.',
+                results: 'Average CTR increased from 3.2% to 8.7%, and subscriber growth accelerated by 140%.',
+                testimonial: 'The new thumbnails completely transformed our channel performance. We\'re getting more views with the same content!',
+                tools: ['Photoshop', 'Illustrator'],
+                team: ['Arpit Gautam', 'Vishal Mehra'],
+                date: '2023-08-14',
+                video_url: 'thumbnail_8.jpg'
+            }
+        ];
+
+        // Initialize the website
+        document.addEventListener('DOMContentLoaded', function () {
+            // Set current year in footer
+            document.getElementById('current-year').textContent = new Date().getFullYear();
+
+            // Generate portfolio items (first 6)
+            generatePortfolioItems(6);
+            attachPortfolioDetailListeners();
+
+
+            // Initialize animations
+            checkVisibility();
+
+            // Initialize counters
+            initCounters();
+
+            // Initialize event listeners
+            initEventListeners();
+            attachPortfolioDetailListeners();
+
+            // Initialize dark mode
+            initDarkMode();
+        });
+
+        // Generate portfolio items
+        let displayedItems = 0;
+        function generatePortfolioItems(count = 6) {
+            const portfolioGrid = document.getElementById('portfolio-grid');
+            const itemsToShow = portfolioItems.slice(displayedItems, displayedItems + count);
+
+            itemsToShow.forEach(item => {
+                const portfolioItem = document.createElement('div');
+                portfolioItem.className = 'portfolio-item glass rounded-2xl overflow-hidden group hover:transform hover:-translate-y-2 transition-all duration-500 scale-in';
+                portfolioItem.setAttribute('data-category', item.category);
+
+                portfolioItem.innerHTML = `
+                    <div class="relative overflow-hidden">
+                        ${
+                            item.category === 'video' && item.video_url
+                            ? item.video_url.endsWith('.mp4')
+                                ? `<video controls poster="${item.media}" class="w-full h-48 md:h-64 lg:h-72 rounded-lg bg-black">
+                                        <source src="${item.video_url}" type="video/mp4">
+                                        Your browser does not support the video tag.
+                                </video>`
+                                : `<iframe src="${item.video_url}" title="${item.title}" class="w-full h-48 md:h-64 lg:h-72 rounded-lg"
+                                        frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                        allowfullscreen></iframe>`
+                            : (item.category === 'graphics' || item.category === 'thumbnails')
+    ? `<img src="${item.media}" alt="${item.title}"
+            class="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-500 lazy-image"
+            loading="lazy"
+            onload="this.parentNode.setAttribute('data-aspect', this.naturalWidth/this.naturalHeight > 1.2 ? '16:9' : (this.naturalWidth/this.naturalHeight < 0.8 ? '9:16' : '1:1'));">
+        <span class="absolute bottom-4 left-4 px-3 py-1 rounded-full text-xs font-medium glass bg-gray-800 bg-opacity-70 aspect-badge"></span>`
+    : `<img src="${item.media}" alt="${item.title}"
+            class="w-full h-48 object-cover group-hover:scale-110 transition-transform duration-500 lazy-image"
+            loading="lazy">`
+                        }
+                        <div class="absolute inset-0 bg-black bg-opacity-70 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                            <button class="view-portfolio-detail px-6 py-3 rounded-full gradient-bg text-white font-medium hover:shadow-lg hover:neon-glow transition-all duration-300" data-id="${item.id}">
+                                <i class="fas fa-eye mr-2"></i>
+                                View Details
+                            </button>
+                        </div>
+                        <span class="absolute top-4 right-4 px-3 py-1 rounded-full text-xs font-medium glass">
+                            ${item.category.charAt(0).toUpperCase() + item.category.slice(1)}
+                        </span>
+                    </div>
+                    <div class="p-6">
+                        <h3 class="text-xl font-bold mb-2 group-hover:gradient-text transition-colors duration-300">${item.title}</h3>
+                        <p class="text-gray-400 text-sm mb-4">${item.client}</p>
+                        <p class="text-gray-300 line-clamp-2">${item.problem}</p>
+                    </div>
+                `;
+                
+
+                portfolioGrid.appendChild(portfolioItem);
+                // Show aspect ratio badge for each image
+                document.querySelectorAll('.portfolio-item .aspect-badge').forEach(badge => {
+                    const aspect = badge.parentNode.getAttribute('data-aspect');
+                    badge.textContent = aspect ? aspect : '16:9';
+                });
+                displayedItems++;
+            });
+
+            // Initialize all portfolio items as visible
+            setTimeout(() => {
+                document.querySelectorAll('.portfolio-item').forEach(item => {
+                    item.classList.add('visible');
+                });
+            }, 100);
+
+            // Update load more button visibility
+            const loadMoreBtn = document.getElementById('load-more');
+            if (displayedItems >= portfolioItems.length) {
+                loadMoreBtn.style.display = 'none';
+            }
+
+            // Lazy load images
+            lazyLoadImages();
+        }
+
+        // Initialize event listeners
+        function initEventListeners() {
+            // Mobile menu toggle
+            document.getElementById('mobile-menu-button').addEventListener('click', function () {
+                const menu = document.getElementById('mobile-menu');
+                menu.classList.toggle('hidden');
+            });
+
+            // Portfolio detail view
+            document.querySelectorAll('.portfolio-filter').forEach(button => {
+                button.addEventListener('click', function () {
+                    // Update active button
+                    document.querySelectorAll('.portfolio-filter').forEach(btn => {
+                        btn.classList.remove('active');
+                    });
+                    this.classList.add('active');
+
+                    // Filter items
+                    const filter = this.getAttribute('data-filter');
+                    const portfolioGrid = document.getElementById('portfolio-grid');
+                    portfolioGrid.innerHTML = ''; // Clear grid
+
+                    // Show all items matching filter
+                    let filteredItems;
+                    if (filter === 'all') {
+                        // Custom selection: 1 video, 1 ads, 1 graphics, 2 thumbnails (random)
+                        function pickRandom(arr, n) {
+                            return arr.sort(() => Math.random() - 0.5).slice(0, n);
+                        }
+                        const videos = pickRandom(portfolioItems.filter(i => i.category === 'video'), 1);
+                        const ads = pickRandom(portfolioItems.filter(i => i.category === 'ads'), 1);
+                        const graphics = pickRandom(portfolioItems.filter(i => i.category === 'graphics'), 1);
+                        const thumbnails = pickRandom(portfolioItems.filter(i => i.category === 'thumbnails'), 2);
+                        filteredItems = [...videos, ...ads, ...graphics, ...thumbnails];
+                        // Optionally shuffle the final array for display order
+                        filteredItems = filteredItems.sort(() => Math.random() - 0.5);
+                    } else {
+                        filteredItems = portfolioItems.filter(item => item.category && item.category.toLowerCase() === filter);
+                    }
+                    
+                    filteredItems.forEach(item => {
+                        const portfolioItem = document.createElement('div');
+                        portfolioItem.className = 'portfolio-item glass rounded-2xl overflow-hidden group hover:transform hover:-translate-y-2 transition-all duration-500 scale-in';
+                        portfolioItem.setAttribute('data-category', item.category);
+
+                        portfolioItem.innerHTML = `
+                            <div class="relative overflow-hidden">
+                                ${
+                                    item.category === 'video' && item.video_url
+                                    ? item.video_url.endsWith('.mp4')
+                                        ? `<video controls poster="${item.media}" class="w-full h-48 md:h-64 lg:h-72 rounded-lg bg-black">
+                                                <source src="${item.video_url}" type="video/mp4">
+                                                Your browser does not support the video tag.
+                                        </video>`
+                                        : `<iframe src="${item.video_url}" title="${item.title}" class="w-full h-48 md:h-64 lg:h-72 rounded-lg"
+                                                frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                                                allowfullscreen></iframe>`
+                                    : `<img src="${item.media}" alt="${item.title}"
+                                            class="w-full object-cover group-hover:scale-110 transition-transform duration-500 lazy-image"
+                                            loading="lazy"
+                                            onload="this.parentNode.setAttribute('data-aspect', this.naturalWidth/this.naturalHeight > 1.2 ? '16:9' : (this.naturalWidth/this.naturalHeight < 0.8 ? '9:16' : '1:1')));">`
+                                }
+                                <div class="absolute inset-0 bg-black bg-opacity-70 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-opacity duration-300">
+                                    <button class="view-portfolio-detail px-6 py-3 rounded-full gradient-bg text-white font-medium hover:shadow-lg hover:neon-glow transition-all duration-300" data-id="${item.id}">
+                                        <i class="fas fa-eye mr-2"></i>
+                                        View Details
+                                    </button>
+                                </div>
+                                <span class="absolute top-4 right-4 px-3 py-1 rounded-full text-xs font-medium glass">
+                                    ${item.category.charAt(0).toUpperCase() + item.category.slice(1)}
+                                </span>
+                            </div>
+                            <div class="p-6">
+                                <h3 class="text-xl font-bold mb-2 group-hover:gradient-text transition-colors duration-300">${item.title}</h3>
+                                <p class="text-gray-400 text-sm mb-4">${item.client}</p>
+                                <p class="text-gray-300 line-clamp-2">${item.problem}</p>
+                            </div>
+                        `;
+                        portfolioGrid.appendChild(portfolioItem);
+                        // Show aspect ratio badge for each image
+                        document.querySelectorAll('.portfolio-item .aspect-badge').forEach(badge => {
+                            const aspect = badge.parentNode.getAttribute('data-aspect');
+                            badge.textContent = aspect ? aspect : '16:9';
+                        });
+                    });
+                    attachPortfolioDetailListeners();
+
+                    // Lazy load images
+                    lazyLoadImages();
+                });
+            });
+
+            // Close modal
+            document.getElementById('close-modal').addEventListener('click', function () {
+                document.getElementById('portfolio-modal').classList.remove('active');
+                // Stop any playing videos/iframes in the modal
+                const modalContent = document.getElementById('modal-content');
+                // Remove all child nodes (this will stop videos/iframes)
+                while (modalContent.firstChild) {
+                    modalContent.removeChild(modalContent.firstChild);
+                }
+            });
+
+            // Close modal when clicking outside
+            document.getElementById('portfolio-modal').addEventListener('click', function (e) {
+                if (e.target === this) {
+                    this.classList.remove('active');
+                    // Stop any playing videos/iframes in the modal
+                    const modalContent = document.getElementById('modal-content');
+                    while (modalContent.firstChild) {
+                        modalContent.removeChild(modalContent.firstChild);
+                    }
+                }
+            });
+
+            // Contact form submission
+            document.getElementById('contact-form').addEventListener('submit', function (e) {
+                e.preventDefault();
+                handleFormSubmit();
+            });
+
+            // Back to form button
+            document.getElementById('back-to-form').addEventListener('click', function () {
+                document.getElementById('form-success').classList.add('hidden');
+                document.getElementById('contact-form').classList.remove('hidden');
+            });
+
+            // Load more button
+            document.getElementById('load-more').addEventListener('click', function () {
+                generatePortfolioItems(3);
+                attachPortfolioDetailListeners();
+            });
+
+            // Smooth scrolling for anchor links
+            document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+                anchor.addEventListener('click', function (e) {
+                    e.preventDefault();
+                    const target = document.querySelector(this.getAttribute('href'));
+                    if (target) {
+                        window.scrollTo({
+                            top: target.offsetTop - 80,
+                            behavior: 'smooth'
+                        });
+
+                        // Close mobile menu if open
+                        document.getElementById('mobile-menu').classList.add('hidden');
+                    }
+                });
+            });
+
+            // Scroll animations
+            window.addEventListener('scroll', function () {
+                checkVisibility();
+                updateReadingProgress();
+                toggleBackToTop();
+            });
+
+            // Back to top button
+            document.getElementById('back-to-top').addEventListener('click', function () {
+                window.scrollTo({
+                    top: 0,
+                    behavior: 'smooth'
+                });
+            });
+        }
+
+        // Initialize dark mode
+        function initDarkMode() {
+            const darkModeToggle = document.getElementById('dark-mode-toggle');
+            const darkModeToggleMobile = document.getElementById('dark-mode-toggle-mobile');
+
+            // Set initial state based on user preference
+            if (localStorage.getItem('dark-mode') === 'true' ||
+                (!localStorage.getItem('dark-mode') && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                document.body.classList.add('dark');
+                if (darkModeToggle) darkModeToggle.checked = true;
+                if (darkModeToggleMobile) darkModeToggleMobile.checked = true;
+            }
+
+            // Desktop toggle
+            if (darkModeToggle) {
+                darkModeToggle.addEventListener('change', function () {
+                    document.body.classList.toggle('dark');
+                    localStorage.setItem('dark-mode', document.body.classList.contains('dark'));
+                    if (darkModeToggleMobile) darkModeToggleMobile.checked = this.checked;
+                });
+            }
+
+            // Mobile toggle
+            if (darkModeToggleMobile) {
+                darkModeToggleMobile.addEventListener('change', function () {
+                    document.body.classList.toggle('dark');
+                    localStorage.setItem('dark-mode', document.body.classList.contains('dark'));
+                    if (darkModeToggle) darkModeToggle.checked = this.checked;
+                });
+            }
+        }
+
+        // Show portfolio detail in modal
+        function showPortfolioDetail(itemId) {
+            const item = portfolioItems.find(i => i.id === itemId);
+            if (!item) return;
+
+            const modalContent = document.getElementById('modal-content');
+
+            modalContent.innerHTML = `
+                <div class="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                    <div>
+                        ${item.video_url ? `
+                            <div class="rounded-xl overflow-hidden mb-6">
+                                <iframe 
+                                    src="${item.video_url}" 
+                                    title="${item.title}" 
+                                    class="w-full h-64 md:h-80 lg:h-96"
+                                    frameborder="0" 
+                                    allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                                    allowfullscreen>
+                                </iframe>
+                            </div>
+                        ` : `
+                            <div class="rounded-xl overflow-hidden mb-6">
+                                <img src="https://placehold.co/800x500/1a1a2e/00f3ff?text=${encodeURIComponent(item.title)}" 
+                                     alt="${item.title}" 
+                                     class="w-full h-auto object-cover">
+                            </div>
+                        `}
+                        
+                        <div class="grid grid-cols-2 gap-4 mb-6">
+                            <div class="glass rounded-lg p-4 text-center">
+                                <p class="text-sm text-gray-400">Client</p>
+                                <p class="font-medium">${item.client}</p>
+                            </div>
+                            <div class="glass rounded-lg p-4 text-center">
+                                <p class="text-sm text-gray-400">Date</p>
+                                <p class="font-medium">${new Date(item.date).toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' })}</p>
+                            </div>
+                        </div>
+                        
+                        <div class="glass rounded-lg p-4 mb-6">
+                            <h3 class="text-lg font-bold mb-3 gradient-text">Tools Used</h3>
+                            <div class="flex flex-wrap gap-2">
+                                ${item.tools.map(tool => `<span class="px-3 py-1 bg-gray-800 rounded-full text-sm">${tool}</span>`).join('')}
+                            </div>
+                        </div>
+                        
+                        <div class="glass rounded-lg p-4">
+                            <h3 class="text-lg font-bold mb-3 gradient-text">Team</h3>
+                            <div class="flex flex-wrap gap-2">
+                                ${item.team.map(member => `<span class="px-3 py-1 bg-gray-800 rounded-full text-sm">${member}</span>`).join('')}
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <div>
+                        <h1 class="text-3xl md:text-4xl font-bold mb-4 gradient-text">${item.title}</h1>
+                        
+                    
+                        
+                        <div class="glass rounded-lg p-5 neon-border">
+                            <h3 class="text-xl font-bold mb-3 gradient-text">Client Testimonial</h3>
+                            <p class="text-gray-300 italic">"${item.testimonial}"</p>
+                            <p class="text-gray-400 mt-2">— ${item.client}</p>
+                        </div>
+                        
+                        <div class="mt-8">
+                            <a href="#contact" class="inline-block px-6 py-3 rounded-full gradient-bg text-white font-medium hover:shadow-lg hover:neon-glow transition-all duration-300">
+                                Start Your Project
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            `;
+
+            document.getElementById('portfolio-modal').classList.add('active');
+        }
+
+        // Handle contact form submission
+        function handleFormSubmit() {
+            const form = document.getElementById('contact-form');
+            const submitButton = document.getElementById('submit-button');
+            const submitText = document.getElementById('submit-text');
+            const submitSpinner = document.getElementById('submit-spinner');
+            const formData = new FormData(form);
+
+            // Show loading state
+            submitText.textContent = 'Sending...';
+            submitSpinner.classList.remove('hidden');
+            submitButton.disabled = true;
+
+            // Basic validation
+            const name = formData.get('name');
+            const email = formData.get('email');
+            const subject = formData.get('subject');
+            const message = formData.get('message');
+            const honeypot = formData.get('website');
+
+            // Simulate API call delay
+            setTimeout(() => {
+                // Honeypot check
+                if (honeypot) {
+                    // Likely a bot - silently succeed
+                    showFormSuccess();
+                    resetFormButton(submitButton, submitText, submitSpinner);
+                    return;
+                }
+
+                // Validation
+                if (!name || !email || !subject || !message) {
+                    showFormError('Please fill in all required fields.');
+                    resetFormButton(submitButton, submitText, submitSpinner);
+                    return;
+                }
+
+                if (!isValidEmail(email)) {
+                    showFormError('Please enter a valid email address.');
+                    resetFormButton(submitButton, submitText, submitSpinner);
+                    return;
+                }
+
+                // If validation passes, show success
+                showFormSuccess();
+                form.reset();
+                resetFormButton(submitButton, submitText, submitSpinner);
+
+                // Show toast notification
+                showToast('Message sent successfully!');
+            }, 1500);
+        }
+
+        // Reset form button state
+        function resetFormButton(button, text, spinner) {
+            text.textContent = 'Send Message';
+            spinner.classList.add('hidden');
+            button.disabled = false;
+        }
+
+        // Show form success message
+        function showFormSuccess() {
+            document.getElementById('form-success').classList.remove('hidden');
+            document.getElementById('contact-form').classList.add('hidden');
+            document.getElementById('form-error').classList.add('hidden');
+        }
+
+        // Show form error message
+        function showFormError(message) {
+            document.getElementById('error-message').textContent = message;
+            document.getElementById('form-error').classList.remove('hidden');
+        }
+
+        // Email validation
+        function isValidEmail(email) {
+            const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+            return emailRegex.test(email);
+        }
+
+        // Scroll animations
+        function checkVisibility() {
+            const elements = document.querySelectorAll('.fade-in, .scale-in');
+            elements.forEach(element => {
+                const position = element.getBoundingClientRect();
+                if (position.top < window.innerHeight - 100) {
+                    element.classList.add('visible');
+                }
+            });
+        }
+
+        // Initialize counters
+        function initCounters() {
+            const statProjects = document.getElementById('stat-projects');
+            const statClients = document.getElementById('stat-clients');
+            const statExperience = document.getElementById('stat-experience');
+            const statAwards = document.getElementById('stat-awards');
+
+            animateCounter(statProjects, 0, 250, 2000);
+            animateCounter(statClients, 0, 120, 2000);
+            animateCounter(statExperience, 0, 5, 2000);
+            animateCounter(statAwards, 0, 15, 2000);
+        }
+
+        // Animate counter
+        function animateCounter(element, start, end, duration) {
+            let startTimestamp = null;
+            const step = (timestamp) => {
+                if (!startTimestamp) startTimestamp = timestamp;
+                const progress = Math.min((timestamp - startTimestamp) / duration, 1);
+                element.innerHTML = Math.floor(progress * (end - start) + start);
+                if (progress < 1) {
+                    window.requestAnimationFrame(step);
+                }
+            };
+            window.requestAnimationFrame(step);
+        }
+
+        // Update reading progress
+        function updateReadingProgress() {
+            const winHeight = window.innerHeight;
+            const docHeight = document.documentElement.scrollHeight;
+            const scrollTop = window.pageYOffset;
+            const trackLength = docHeight - winHeight;
+            const progress = scrollTop / trackLength * 100;
+
+            document.getElementById('reading-progress').style.width = progress + '%';
+        }
+
+        // Toggle back to top button
+        function toggleBackToTop() {
+            const backToTop = document.getElementById('back-to-top');
+            if (window.pageYOffset > 300) {
+                backToTop.classList.add('visible');
+            } else {
+                backToTop.classList.remove('visible');
+            }
+        }
+
+        // Show toast notification
+        function showToast(message) {
+            const toast = document.getElementById('toast');
+            toast.textContent = message;
+            toast.classList.add('visible');
+
+            setTimeout(() => {
+                toast.classList.remove('visible');
+            }, 3000);
+        }
+
+        // Lazy load images
+        function lazyLoadImages() {
+            const lazyImages = document.querySelectorAll('.lazy-image');
+
+            const imageObserver = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        const img = entry.target;
+                        img.classList.add('loaded');
+                        imageObserver.unobserve(img);
+                    }
+                });
+            });
+
+            lazyImages.forEach(img => {
+                imageObserver.observe(img);
+            });
+        } // <-- Add this missing closing brace
+
+        function attachPortfolioDetailListeners() {
+            document.querySelectorAll('.view-portfolio-detail').forEach(btn => {
+                btn.addEventListener('click', function (e) {
+                    e.stopPropagation();
+                    const id = parseInt(this.getAttribute('data-id'));
+                    showPortfolioDetail(id);
+                });
+            });
+        }
+    </script>
+</body>
+
+</html>
